@@ -68,9 +68,8 @@ class Artist
     sql = "SELECT * FROM artists WHERE id = $1"
     values = [id]
     results = SqlRunner.run(sql, "find_artist", values)
-    artist_hash = results.first
-    artist = artist.new(artist_hash)
-    return artist
+    artist = results.first[0]
+    return Artist.new(artist)
   end
 
 end
