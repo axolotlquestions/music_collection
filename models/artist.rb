@@ -55,7 +55,22 @@ class Artist
     )
     WHERE id = $2;"
     values = [@artist_name, @id]
-    SqlRunner.run(sql,"update", values)
+    SqlRunner.run(sql,"update_artist", values)
+  end
+
+  def delete()
+    sql = "DELETE FROM artists where id = $1;"
+    values = [@id]
+    SqlRunner.run(sql, "delete_artist", values)
+  end
+
+  def self.find(id)
+    sql = "SELECT * FROM artists WHERE id = $1"
+    values = [id]
+    results = SqlRunner.run(sql, "find_artist", values)
+    artist_hash = results.first
+    artist = artist.new(artist_hash)
+    return artist
   end
 
 end
